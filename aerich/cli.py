@@ -57,7 +57,7 @@ async def cli(ctx: Context, config, app):
         config_path = Path(config)
         if not config_path.exists():
             raise UsageError("You must exec init first", ctx=ctx)
-        content = config_path.read_text()
+        content = config_path.read_text(encoding="utf-8")
         doc = tomlkit.parse(content)
         try:
             tool = doc["tool"]["aerich"]
@@ -201,7 +201,7 @@ async def init(ctx: Context, tortoise_orm, location, src_folder):
     get_tortoise_config(ctx, tortoise_orm)
     config_path = Path(config_file)
     if config_path.exists():
-        content = config_path.read_text()
+        content = config_path.read_text(encoding="utf-8")
         doc = tomlkit.parse(content)
     else:
         doc = tomlkit.parse("[tool.aerich]")
